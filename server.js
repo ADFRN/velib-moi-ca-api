@@ -1,9 +1,11 @@
 import express from 'express';
 import axios from 'axios';
 import geolib from 'geolib';
+import cors from 'cors';
+
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 const API_URL =
   'https://data.opendatasoft.com/api/explore/v2.1/catalog/datasets/velib-disponibilite-en-temps-reel@parisdata/records';
@@ -15,6 +17,7 @@ function getDistance(lat1, lon1, lat2, lon2) {
   );
 }
 
+app.use(cors());
 app.get('/stations', async (req, res) => {
   const { lat, lon } = req.query;
 
