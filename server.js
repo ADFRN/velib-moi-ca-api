@@ -33,6 +33,7 @@ app.get('/stations', async (req, res) => {
     const response = await axios.get(API_URL, {
       params: {
         where: `within_distance(coordonnees_geo, GEOM'POINT(${lonNumber} ${latNumber})', 1km)`,
+        limit: 20,
       },
     });
 
@@ -51,7 +52,7 @@ app.get('/stations', async (req, res) => {
       })
       .sort((a, b) => a.distance - b.distance);
 
-    res.json(stationsSorted.slice(0, 10));
+    res.json(stationsSorted.slice(0, 20));
   } catch (error) {
     console.error(error);
     res
